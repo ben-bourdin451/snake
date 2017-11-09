@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta name="robots" content="noindex, nofollow">
-	<meta name="googlebot" content="noindex, nofollow">
+import './style.css';
 
-	<script type="text/javascript" src="/js/lib/dummy.js"></script>
-	<link rel="stylesheet" type="text/css" href="/css/result-light.css">
+function component() {
+	let element = document.createElement('canvas');
+	element.setAttribute("id", "screen");
 
-	<style type="text/css">
-		canvas {
-			border:1px solid #000000;
-			width: 500px;
-			height: 300px;
-		}
-	</style>
+	return element;
+}
 
-	<title>Snake by ben_bourdin</title>
+document.body.appendChild(component());
 
-<script type='text/javascript'>//<![CDATA[
-window.onload=function(){
 const DIRECTION = {
 	UP: 1,
 	RIGHT: 2,
@@ -147,7 +136,6 @@ function wrapTile(max, tile, n) {
 	}
 }
 
-
 function generateApple(snake) {
 	let appleX = randomPosX();
 	let appleY = randomPosY();
@@ -178,16 +166,4 @@ function main() {
 	//console.log(`interval ${loop}`);
 }
 
-
 main();
-}
-</script>
-
-	
-</head>
-
-<body>
-	<canvas id="screen"></canvas>
-</body>
-
-</html>

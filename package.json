@@ -1,0 +1,26 @@
+{
+  "name": "snake",
+  "version": "0.1.0",
+  "description": "Snake game - by Ben",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack",
+    "test": "jest"
+  },
+  "keywords": [
+    "game",
+    "snake"
+  ],
+  "author": "Ben Bourdin",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "^21.2.1",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
