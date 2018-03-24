@@ -44,6 +44,11 @@ function main() {
 	let snake = new Snake(screen.width / 2, screen.height / 2);
 	let apple = generateApple(snake);
 	
+	window.addEventListener("keydown", event => {
+		snake.handleKeyDown(event);
+		event.preventDefault();
+	});
+	
 	let loop = setInterval(() => {
 		// Time
 		snake.move(screen)

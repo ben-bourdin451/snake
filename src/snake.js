@@ -10,6 +10,17 @@ const DIRECTION = {
 	LEFT: 4
 }
 
+const KEYS = {
+	RETURN: 13,
+	DELETE: 46,
+	ESCAPE: 27,
+	SPACEBAR: 32,
+	ARROW_LEFT: 37,
+	ARROW_UP: 38,
+	ARROW_RIGHT: 39,
+	ARROW_DOWN: 40
+}
+
 const COLOUR = '#6B9E7D';
 
 export default class Snake {
@@ -95,6 +106,23 @@ export default class Snake {
 			return max - tile
 		} else {
 			return pos;
+		}
+	}
+	
+	handleKeyDown(event) {
+		switch (event.keyCode) {
+			case KEYS.ARROW_LEFT:
+				this.direction = DIRECTION.LEFT;
+			break;
+			case KEYS.ARROW_UP:
+				this.direction = DIRECTION.UP;
+			break;
+			case KEYS.ARROW_RIGHT:
+				this.direction = DIRECTION.RIGHT;
+			break;
+			case KEYS.ARROW_DOWN:
+				this.direction = DIRECTION.DOWN;
+			break;
 		}
 	}
 }
