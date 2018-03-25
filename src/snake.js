@@ -27,10 +27,11 @@ export default class Snake {
 	constructor(x, y, size = 4) {
 		this.body = [[x, y]];
 		this.length = size;
+		this.prevDirection = DIRECTION.UP;
 		this.direction = DIRECTION.UP;
 		
 		// Grow to initial size
-		for (let i = 1; i < size; i++) { this.grow(); }
+		for (let i = 1; i < size; i++) { this.grow(DIRECTION.UP); }
 	}
 
 	addBody(x, y) {
@@ -44,8 +45,8 @@ export default class Snake {
 		}, false)
 	}
 
-	grow() {
-		switch (this.direction) {
+	grow(direction) {
+		switch (direction) {
 			case DIRECTION.UP:
 				this.addBody(this.body[0][0], this.body[0][1] - TILE_H);
 				break;
@@ -65,8 +66,38 @@ export default class Snake {
 	}
 
 	move() {
-		this.grow();
+		this.checkPrevDirection();
+
+		this.grow(this.direction);
 		this.body.pop();
+
+		this.prevDirection = this.direction;
+	}
+	
+	checkPrevDirection() {
+		// Direction safeguard
+		switch (this.prevDirection) {
+			case DIRECTION.UP:
+				if (this.direction == DIRECTION.DOWN) {
+					this.direction = DIRECTION.UP;
+				}
+			break;
+			case DIRECTION.RIGHT:
+				if (this.direction == DIRECTION.LEFT) {
+					this.direction = DIRECTION.RIGHT;
+				}
+			break;
+			case DIRECTION.DOWN:
+				if (this.direction == DIRECTION.UP) {
+					this.direction = DIRECTION.DOWN;
+				}
+			break;
+			case DIRECTION.LEFT:
+				if (this.direction == DIRECTION.RIGHT) {
+					this.direction = DIRECTION.LEFT;
+				}
+			break;
+		}
 	}
 
 	draw(ctx, screen) {
@@ -92,9 +123,6 @@ export default class Snake {
 
 	handleKeyDown(event) {
 		switch (event.keyCode) {
-			case KEYS.ARROW_LEFT:
-				this.direction = DIRECTION.LEFT;
-			break;
 			case KEYS.ARROW_UP:
 				this.direction = DIRECTION.UP;
 			break;
@@ -103,6 +131,9 @@ export default class Snake {
 			break;
 			case KEYS.ARROW_DOWN:
 				this.direction = DIRECTION.DOWN;
+			break;
+			case KEYS.ARROW_LEFT:
+				this.direction = DIRECTION.LEFT;
 			break;
 		}
 	}
