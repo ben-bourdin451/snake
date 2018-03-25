@@ -43,11 +43,19 @@ export default class Snake {
 	eat() {
 		this.eating = true;
 	}
+	
+	headIsInBody() {
+		return this.body.reduce((acc, e, index) => {
+			return index == 0
+			? false
+			: acc || (e[0] === this.body[0][0] && e[1] === this.body[0][1]);
+		}, false)
+	}
 
 	isInsideBody(x, y) {
 		return this.body.reduce((acc, e) => {
 			return acc || (e[0] === x && e[1] === y);
-		}, false)
+		}, false);
 	}
 
 	grow(direction) {

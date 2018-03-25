@@ -51,9 +51,17 @@ function main() {
 	});
 	
 	let loop = setInterval(() => {
-		// Time
-		snake.move()
+		snake.move();
 		
+		// Collision detection
+		if (snake.headIsInBody()) {
+			// Game over!
+			ctx.strokeText("Game over!", (screen.width / 2) - 20, screen.height / 2)
+			window.clearInterval(loop);
+			return;
+		}
+		
+		// Eating apple
 		if (snake.isInsideBody(apple.getX(), apple.getY())) {
 			snake.eat();
 			apple = generateApple(snake);
