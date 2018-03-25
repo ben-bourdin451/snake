@@ -25,78 +25,59 @@ const COLOUR = '#6B9E7D';
 
 export default class Snake {
 	constructor(x, y, size = 4) {
-		this.x = x;
-		this.y = y;
+		this.body = [[x, y]];
 		this.length = size;
 		this.direction = DIRECTION.UP;
+		
+		// Grow to initial size
+		for (let i = 1; i < size; i++) { this.grow(); }
 	}
-	
-	isOutsideBounds(x, y) {
-		switch(this.direction) {
-			case DIRECTION.UP:
-				return x !== this.x && y < this.y && this.y + (TILE_H * this.length) < y;
-			case DIRECTION.RIGHT:
-				return y !== this.y && x < this.x - (TILE_W * this.length) && this.x < x;
-			case DIRECTION.DOWN:
-				return x !== this.x && y < this.y - (TILE_H * this.length) && this.y < y;
-			case DIRECTION.LEFT:
-				return y !== this.y && x < this.x && this.x + (TILE_W * this.length) < x;
-			default:
-				return true;
-		}
+
+	addBody(x, y) {
+		// Add to body
+		this.body.unshift([x, y]);
 	}
-	
-	move(screen) {
+
+	isInsideBody(x, y) {
+		return this.body.reduce((acc, e) => {
+			return acc || (e[0] === x && e[1] === y);
+		}, false)
+	}
+
+	grow() {
 		switch (this.direction) {
 			case DIRECTION.UP:
-				this.y -= TILE_H;
+				this.addBody(this.body[0][0], this.body[0][1] - TILE_H);
 				break;
-			
+
 			case DIRECTION.RIGHT:
-				this.x += TILE_H;
+				this.addBody(this.body[0][0] + TILE_H, this.body[0][1]);
 				break;
-			
+
 			case DIRECTION.DOWN:
-				this.y += TILE_H;
+				this.addBody(this.body[0][0], this.body[0][1] + TILE_H);
 				break;
-				
+
 			case DIRECTION.LEFT:
-				this.x -= TILE_H;
+				this.addBody(this.body[0][0] - TILE_H, this.body[0][1]);
 				break;
 		}
-		this.x = this.wrapTile(screen.width, TILE_W, this.x);
-		this.y = this.wrapTile(screen.height, TILE_H, this.y);
 	}
-	
+
+	move() {
+		this.grow();
+		this.body.pop();
+	}
+
 	draw(ctx, screen) {
 		ctx.fillStyle = COLOUR;
-		ctx.fillRect(this.x, this.y, TILE_W, TILE_H);
-		
-		for (let i = 1; i < this.length; i++) {
-			let posX = this.x, posY = this.y;
-			
-			switch (this.direction) {
-				case DIRECTION.UP:
-					posY += TILE_H * i;
-					break;
-					
-				case DIRECTION.RIGHT:
-					posX -= TILE_W * i;
-					break;
-					
-				case DIRECTION.DOWN:
-					posY -= TILE_H * i;
-					break;
-					
-				case DIRECTION.LEFT:
-					posX += TILE_W * i;
-					break;
-			}
-			posX = this.wrapTile(screen.width, TILE_W, posX);
-			posY = this.wrapTile(screen.height, TILE_H, posY);
 
-			ctx.fillRect(posX, posY, TILE_W, TILE_H);
-		}
+		this.body.map(e => {
+			// Wrap according to screen size
+			e[0] = this.wrapTile(screen.width, TILE_W, e[0]);
+			e[1] = this.wrapTile(screen.height, TILE_H, e[1]);
+			ctx.fillRect(e[0], e[1], TILE_W, TILE_H);
+		});
 	}
 
 	wrapTile(max, tile, pos) {
@@ -108,7 +89,7 @@ export default class Snake {
 			return pos;
 		}
 	}
-	
+
 	handleKeyDown(event) {
 		switch (event.keyCode) {
 			case KEYS.ARROW_LEFT:
@@ -124,5 +105,9 @@ export default class Snake {
 				this.direction = DIRECTION.DOWN;
 			break;
 		}
+	}
+
+	getBody() {
+		return this.body;
 	}
 }

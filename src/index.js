@@ -32,7 +32,8 @@ function generateApple(snake) {
 	let appleX = randomPosX();
 	let appleY = randomPosY();
 	
-	while (snake.isOutsideBounds(appleX, appleY)) {
+	// While apple is inside body of snake, generate new positions
+	while (snake.isInsideBody(appleX, appleY)) {
 		appleX = randomPosX();
 		appleY = randomPosY();
 	}
@@ -51,7 +52,7 @@ function main() {
 	
 	let loop = setInterval(() => {
 		// Time
-		snake.move(screen)
+		snake.move()
 	
 		// Draw	
 		ctx.clearRect(0, 0, screen.width, screen.height);
