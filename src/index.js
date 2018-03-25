@@ -44,6 +44,7 @@ function generateApple(snake) {
 function main() {
 	let snake = new Snake(screen.width / 2, screen.height / 2);
 	let apple = generateApple(snake);
+	let score = 0;
 	
 	window.addEventListener("keydown", event => {
 		snake.handleKeyDown(event);
@@ -63,6 +64,7 @@ function main() {
 		
 		// Eating apple
 		if (snake.isInsideBody(apple.getX(), apple.getY())) {
+			score += 10;
 			snake.eat();
 			apple = generateApple(snake);
 		}
@@ -71,6 +73,7 @@ function main() {
 		ctx.clearRect(0, 0, screen.width, screen.height);
 		snake.draw(ctx, screen);
 		apple.draw(ctx);
+		ctx.strokeText(`Score: ${score}`, 0, 10)
 	}, 1 / FPS * 1000);
 }
 
