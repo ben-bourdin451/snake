@@ -1,7 +1,7 @@
 # snake
 Snake game built with JS &amp; webpack
 
-Demo built for kids coding club
+Demo built for kids coding club: https://ben-bourdin451.github.io/snake/
 
 ## Develop locally
 
