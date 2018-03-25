@@ -53,6 +53,11 @@ function main() {
 	let loop = setInterval(() => {
 		// Time
 		snake.move()
+		
+		if (snake.isInsideBody(apple.getX(), apple.getY())) {
+			snake.eat();
+			apple = generateApple(snake);
+		}
 	
 		// Draw	
 		ctx.clearRect(0, 0, screen.width, screen.height);

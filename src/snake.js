@@ -29,6 +29,7 @@ export default class Snake {
 		this.length = size;
 		this.prevDirection = DIRECTION.UP;
 		this.direction = DIRECTION.UP;
+		this.eating = false;
 		
 		// Grow to initial size
 		for (let i = 1; i < size; i++) { this.grow(DIRECTION.UP); }
@@ -37,6 +38,10 @@ export default class Snake {
 	addBody(x, y) {
 		// Add to body
 		this.body.unshift([x, y]);
+	}
+	
+	eat() {
+		this.eating = true;
 	}
 
 	isInsideBody(x, y) {
@@ -69,7 +74,12 @@ export default class Snake {
 		this.checkPrevDirection();
 
 		this.grow(this.direction);
-		this.body.pop();
+		
+		if (!this.eating) {
+			this.body.pop();
+		} else {
+			this.eating = false;
+		}
 
 		this.prevDirection = this.direction;
 	}

@@ -12,4 +12,12 @@ export default class Apple {
 		ctx.fillStyle = COLOUR;
 		ctx.fillRect(this.x, this.y, globals.TILE_W, globals.TILE_H);
 	}
+	
+	getX() {
+		return this.x;
+	}
+	
+	getY() {
+		return this.y;
+	}
 }
