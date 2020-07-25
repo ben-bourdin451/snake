@@ -50,14 +50,15 @@ function main() {
 		snake.handleKeyDown(event);
 		event.preventDefault();
 	});
-	
+
 	let loop = setInterval(() => {
 		snake.move();
 		
 		// Collision detection
 		if (snake.headIsInBody()) {
 			// Game over!
-			ctx.strokeText("Game over!", (screen.width / 2) - 20, screen.height / 2)
+			ctx.font="10px sans-serif";
+			ctx.strokeText("Game over!", (screen.width / 2) - 20, screen.height / 2);
 			window.clearInterval(loop);
 			return;
 		}
@@ -73,7 +74,9 @@ function main() {
 		ctx.clearRect(0, 0, screen.width, screen.height);
 		snake.draw(ctx, screen);
 		apple.draw(ctx);
-		ctx.strokeText(`Score: ${score}`, 0, 10)
+		ctx.strokeStyle="#ffa86a";
+		ctx.font="8px sans-serif";
+		ctx.strokeText(`${score}`, 2, 10);
 	}, 1 / FPS * 1000);
 }
 
