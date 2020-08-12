@@ -49,7 +49,7 @@ export default class Snake {
 			return index == 0
 			? false
 			: acc || (e[0] === this.body[0][0] && e[1] === this.body[0][1]);
-		}, false)
+		}, false);
 	}
 
 	isInsideBody(x, y) {
@@ -133,7 +133,7 @@ export default class Snake {
 		if (pos >= max) {
 			return pos - max;
 		} else if (pos < 0) {
-			return max - tile
+			return max - tile;
 		} else {
 			return pos;
 		}

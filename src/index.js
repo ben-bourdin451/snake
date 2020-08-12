@@ -7,10 +7,16 @@ import './style.css';
 const TILE_W = globals.TILE_W;
 const TILE_H = globals.TILE_H;
 const FPS = 12;
+const urlParams = new URLSearchParams(window.location.search);
 
 function createCanvas() {
 	let element = document.createElement('canvas');
 	element.setAttribute("id", "screen");
+
+	const width = urlParams.get("w") || 500;
+	const height = urlParams.get("h") || 300;
+	element.setAttribute("width", width);
+	element.setAttribute("height", height);
 
 	return element;
 }
@@ -57,8 +63,8 @@ function main() {
 		// Collision detection
 		if (snake.headIsInBody()) {
 			// Game over!
-			ctx.font="10px sans-serif";
-			ctx.strokeText("Game over!", (screen.width / 2) - 20, screen.height / 2);
+			ctx.font="20px sans-serif";
+			ctx.fillText("Game over!", (screen.width / 2) - 50, screen.height / 2);
 			window.clearInterval(loop);
 			return;
 		}
@@ -75,8 +81,8 @@ function main() {
 		snake.draw(ctx, screen);
 		apple.draw(ctx);
 		ctx.strokeStyle="#ffa86a";
-		ctx.font="8px sans-serif";
-		ctx.strokeText(`${score}`, 2, 10);
+		ctx.font="20px sans-serif";
+		ctx.fillText(`${score}`, 5, 20);
 	}, 1 / FPS * 1000);
 }
 
