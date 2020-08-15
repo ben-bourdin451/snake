@@ -8,7 +8,7 @@ const DIRECTION = {
 	RIGHT: 2,
 	DOWN: 3,
 	LEFT: 4
-}
+};
 
 const KEYS = {
 	RETURN: 13,
@@ -19,7 +19,7 @@ const KEYS = {
 	ARROW_UP: 38,
 	ARROW_RIGHT: 39,
 	ARROW_DOWN: 40
-}
+};
 
 const COLOUR = '#6B9E7D';
 
